@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">533095945453362</string>
+    <string name="fb_login_protocol_scheme">SadqaPak</string>
+    <string name="facebook_client_token">f594bff488cbe5498c32704c7022d8fa</string>
+</resources>
