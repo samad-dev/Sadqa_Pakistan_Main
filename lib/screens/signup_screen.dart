@@ -68,9 +68,10 @@ class _SignupScreenState extends State<SignupScreen> {
           });
       var headers = {
         'Content-Type': 'application/json',
-        'Cookie': 'mailpoet_page_view=%7B%22timestamp%22%3A1660039215%7D; mailpoet_subscriber=%7B%22subscriber_id%22%3A12%7D'
+        'Authorization': 'Basic Y2tfNjAxYzBmOWQ4ODA3MTMwZjYxNDgzODJkMDlkY2IzMDBiNWFmN2NhMzpjc180MGYyNWM1YjY3YmI1NWVmYmExYzY0YTFhOWY0NGVmYWM4NTljOGE1',
+        'Cookie': 'mailpoet_page_view=%7B%22timestamp%22%3A1699134912%7D'
       };
-      var request = http.Request('POST', Uri.parse('https://sadqapakistan.org/wp-json/wp/v2/users/register'));
+      var request = http.Request('POST', Uri.parse('https://sadqapakistan.org/wp-json/wc/v3/customers'));
       request.body = json.encode({
         "username": usernamecontroller.text.toString(),
         "email": emailController.text.toString(),
@@ -82,8 +83,8 @@ class _SignupScreenState extends State<SignupScreen> {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-
-      if (response.statusCode == 200) {
+      print(response.statusCode);
+      if (response.statusCode == 201) {
         Navigator.of(context).pop();
         String data = await response.stream.bytesToString();
         final token =  json.decode(data);
@@ -91,8 +92,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
         // var jso = json.decode(response.stream.bytesToString().toString());
 
-        print(token["message"]);
-        Fluttertoast.showToast(msg: token["message"]);
+        print(token);
+        Fluttertoast.showToast(msg: "User Created Successfully");
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) =>  loginScreen()),
@@ -100,7 +101,8 @@ class _SignupScreenState extends State<SignupScreen> {
         print(await response.stream.bytesToString());
 
       }
-      else {
+      else
+      {
         Navigator.of(context).pop();
         String data = await response.stream.bytesToString();
         final token =  json.decode(data);
@@ -108,7 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
         // var jso = json.decode(response.stream.bytesToString().toString());
 
-        print(token["message"]);
+        print(token);
         Fluttertoast.showToast(msg: token["message"]);
 
       }

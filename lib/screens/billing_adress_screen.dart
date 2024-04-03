@@ -67,7 +67,7 @@ class _BillingAddressScreenState extends State<BillingAddressScreen> {
         state= token[0]['billing']['state'];
         post= token[0]['billing']['postcode'];
         email = token[0]['email'];
-        id = token[0]['id'];
+        id = token[0]['id'].toString();
         pref.setString('id', id.toString());
         pref.setString('email', email.toString());
         print(email+"......"+first_name);

@@ -83,7 +83,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             state= token[0]['billing']['state'];
             // state= token[0]['billing']['state'];
             // email = token[0]['email'];
-            id = token[0]['id'];
+            id = token[0]['id'].toString();
             pref.setString('id', id.toString());
             pref.setString('email', email.toString());
             print(email+"......"+first_name);

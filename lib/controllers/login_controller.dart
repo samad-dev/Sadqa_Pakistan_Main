@@ -35,29 +35,36 @@ class LoginController with ChangeNotifier {
     await prefs.setString('id',this._googleAccount!.id.toString() );
     await prefs.setString('email',this._googleAccount!.email );
     await prefs.setString('username',this._googleAccount!.displayName.toString());
-    navigationService.navigateTo(homeScreenRoute);
-    // bool response  = await apiService.wooSocialLogin(this.userDetail!.email ?? "");
-    // print(response);
-    // if (response) {
-    //   final prefs = await SharedPreferences.getInstance();
-    //   await prefs.setString('id',this._googleAccount!.id.toString() );
-    //   await prefs.setString('email',this._googleAccount!.email );
-    //   await prefs.setString('username',this._googleAccount!.displayName.toString());
-    //   print(prefs.getString('id'));
-    //   print(prefs.getString('id'));
-    //   navigationService.navigateTo(homeScreenRoute);
-    // }
-    // else {
-    //   Fluttertoast.showToast(
-    //       msg: "Sign In Failed",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.BOTTOM,
-    //       timeInSecForIosWeb: 1,
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //       fontSize: 12.0
-    //   );
-    // }
+    // navigationService.navigateTo(homeScreenRoute);
+    bool response  = await apiService.wooSocialLogin(this.userDetail!.email ?? "");
+    print(response);
+    if (response) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('id',this._googleAccount!.id.toString() );
+      await prefs.setString('email',this._googleAccount!.email );
+      await prefs.setString('username',this._googleAccount!.displayName.toString());
+      print(prefs.getString('id'));
+      print(prefs.getString('id'));
+      navigationService.navigateTo(homeScreenRoute);
+    }
+    else {
+      Fluttertoast.showToast(
+          msg: "Account Not Found Registering New Account",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 12.0
+      );
+      bool response  = await apiService.wooSocialRegister(this.userDetail!.displayName.toString(),this.userDetail!.email.toString(),"123456");
+      if(response)
+        {
+          print(prefs.getString('id'));
+          navigationService.navigateTo(homeScreenRoute);
+        }
+    }
+
     notifyListeners();
   }
 
